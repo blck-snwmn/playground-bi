@@ -2,6 +2,8 @@
 title: カテゴリ詳細
 ---
 
+[Home](/) > [Categories](/categories) > {params.category}
+
 # {params.category} の分析
 
 ```sql category_summary
@@ -92,4 +94,4 @@ LIMIT 10
 
 ---
 
-[← ホームに戻る](/)
+[← カテゴリ一覧に戻る](/categories) | [ホームに戻る](/)

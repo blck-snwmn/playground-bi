@@ -44,9 +44,9 @@ ORDER BY sales DESC
 ## 動的なチャートタイプ切替
 
 <ButtonGroup name=chart_type>
-    <ButtonGroupItem value="bar" label="棒グラフ" default />
-    <ButtonGroupItem value="line" label="折れ線" />
-    <ButtonGroupItem value="area" label="エリア" />
+    <ButtonGroupItem value="bar" valueLabel="棒グラフ" default />
+    <ButtonGroupItem value="line" valueLabel="折れ線" />
+    <ButtonGroupItem value="area" valueLabel="エリア" />
 </ButtonGroup>
 
 ```sql monthly_sales

@@ -120,4 +120,7 @@ Evidence の様々な機能を試せるデモページ：
 - [入力コンポーネント](/inputs-demo) - Dropdown, ButtonGroup, TextInput など
 - [条件分岐デモ](/conditional-demo) - `{#if}`, `{#each}` の使い方
 - [カスタムコンポーネント](/custom-components) - Svelte でコンポーネント作成
-- [カテゴリ詳細（テンプレートページ）](/categories/Technology) - 動的ルートのデモ
+- カテゴリ詳細（テンプレートページ）- 動的ルートのデモ
+  - [Technology](/categories/Technology)
+  - [Furniture](/categories/Furniture)
+  - [Office Supplies](/categories/Office-Supplies)
