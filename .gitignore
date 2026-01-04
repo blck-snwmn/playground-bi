@@ -1,0 +1,26 @@
+# Data files
+data/
+
+# DuckDB
+*.duckdb
+*.duckdb.wal
+
+# Node.js (Evidence)
+node_modules/
+.evidence/
+.svelte-kit/
+build/
+
+# Python (Streamlit)
+.venv/
+__pycache__/
+*.py[cod]
+.python-version
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
