@@ -1,0 +1,4 @@
+# SuperStore データソース (DuckDB)
+name: superstore
+type: duckdb
+options: {}
