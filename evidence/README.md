@@ -1,48 +1,107 @@
-# Evidence Template Project
+# Evidence
 
-## Using Codespaces
+A BI as Code tool for building dashboards with SQL and Markdown.
 
-If you are using this template in Codespaces, click the `Start Evidence` button in the bottom status bar. This will install dependencies and open a preview of your project in your browser - you should get a popup prompting you to open in browser.
+## Prerequisites
 
-Or you can use the following commands to get started:
+- [Bun](https://bun.sh/)
 
-```bash
-npm install
-npm run sources
-npm run dev -- --host 0.0.0.0
-```
-
-See [the CLI docs](https://docs.evidence.dev/cli/) for more command information.
-
-**Note:** Codespaces is much faster on the Desktop app. After the Codespace has booted, select the hamburger menu → Open in VS Code Desktop.
-
-## Get Started from VS Code
-
-The easiest way to get started is using the [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=Evidence.evidence-vscode):
-
-
-
-1. Install the extension from the VS Code Marketplace
-2. Open the Command Palette (Ctrl/Cmd + Shift + P) and enter `Evidence: New Evidence Project`
-3. Click `Start Evidence` in the bottom status bar
-
-## Get Started using the CLI
+## Setup
 
 ```bash
-npx degit evidence-dev/template my-project
-cd my-project 
-npm install 
-npm run sources
-npm run dev 
+# From project root
+make evidence-install
+
+# Or directly
+cd evidence && bun install
 ```
 
-Check out the docs for [alternative install methods](https://docs.evidence.dev/getting-started/install-evidence) including Docker, Github Codespaces, and alongside dbt.
+## Run Dev Server
 
+```bash
+make evidence-dev
+# → http://localhost:3000
+```
 
+## Directory Structure
 
-## Learning More
+```
+evidence/
+├── pages/                    # Markdown pages
+│   ├── index.md              # Home page
+│   ├── categories/           # Template pages
+│   │   ├── index.md
+│   │   └── [category].md
+│   ├── input-demo.md
+│   ├── conditional-demo.md
+│   └── stacked-chart-demo.md
+├── sources/                  # Data source configuration
+│   └── superstore/
+│       └── connection.yaml
+└── evidence.plugins.yaml
+```
 
-- [Docs](https://docs.evidence.dev/)
-- [Github](https://github.com/evidence-dev/evidence)
-- [Slack Community](https://slack.evidence.dev/)
-- [Evidence Home Page](https://www.evidence.dev)
+## Demo Pages
+
+| Path | Description |
+|------|-------------|
+| `/` | Dashboard overview |
+| `/categories` | Category analysis (template page) |
+| `/input-demo` | Input components demo |
+| `/conditional-demo` | Conditional rendering demo |
+| `/stacked-chart-demo` | Stacked chart demo |
+
+## Key Features
+
+### SQL Queries
+
+Write SQL in code blocks within Markdown:
+
+````markdown
+```sql sales_by_category
+SELECT category, SUM(sales) as total_sales
+FROM superstore.orders
+GROUP BY category
+```
+````
+
+### Chart Components
+
+```markdown
+<BarChart
+    data={sales_by_category}
+    x=category
+    y=total_sales
+/>
+```
+
+### Input Components
+
+```markdown
+<Dropdown
+    name=category_filter
+    data={categories}
+    value=category
+/>
+
+WHERE category = '${inputs.category_filter.value}'
+```
+
+### Template Pages
+
+Receive URL parameters with `[param].md` filename:
+
+```markdown
+<!-- pages/categories/[category].md -->
+WHERE category = '${params.category}'
+```
+
+## Notes
+
+- **Chart Sorting**: Default sorts by Y-axis descending. Use `sort=false` for time series data
+- **ButtonGroup**: Use `valueLabel` instead of `label`
+
+## References
+
+- [Evidence Documentation](https://docs.evidence.dev/)
+- [Evidence GitHub](https://github.com/evidence-dev/evidence)

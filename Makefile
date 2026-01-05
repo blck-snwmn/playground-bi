@@ -22,7 +22,7 @@ streamlit-install:
 	cd streamlit && uv sync
 
 streamlit-dev:
-	cd streamlit && uv run streamlit run app.py
+	cd streamlit && uv run streamlit run main.py
 
 # Database
 init-db:
