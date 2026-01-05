@@ -1,27 +1,27 @@
 # playground-bi
 
-BI as Code ツールを試すモノレポ。
+A monorepo for experimenting with BI as Code tools.
 
-## 構成
+## Structure
 
 - `evidence/` - Evidence (SQL/Markdown)
 - `streamlit/` - Streamlit (Python)
-- `data/` - 共有データ (SuperStore.csv)
-- `shared/` - 共有SQL等
+- `data/` - Shared data (SuperStore.csv)
+- `shared/` - Shared SQL files
 
-## データベース
+## Database
 
-DuckDB を使用。各ツールから `data/SuperStore.csv` を直接クエリ可能。
+Uses DuckDB. Each tool can query `data/SuperStore.csv` directly.
 
-## 開発コマンド
+## Development Commands
 
 ```bash
-make evidence-dev   # Evidence 開発サーバー
-make streamlit-dev  # Streamlit アプリ起動
+make evidence-dev   # Start Evidence dev server
+make streamlit-dev  # Start Streamlit app
 ```
 
-## 注意
+## Notes
 
-- Evidence は Node.js 18+ 必須
-- Streamlit は uv でパッケージ管理
-- DuckDB ファイル (*.duckdb) は gitignore 対象
+- Evidence requires Bun
+- Streamlit uses uv for package management
+- DuckDB files (*.duckdb) are gitignored
