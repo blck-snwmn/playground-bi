@@ -12,6 +12,8 @@ playground-bi/
 │   └── SuperStore.csv
 ├── evidence/           # Evidence project
 ├── streamlit/          # Streamlit project
+├── dbt/                # dbt project (PostgreSQL)
+├── lightdash/          # Lightdash (Docker Compose)
 └── shared/             # Shared SQL files
 ```
 
@@ -32,14 +34,15 @@ Uses the SuperStore dataset (retail order data).
 
 ## Tool Comparison
 
-| Aspect | Evidence | Streamlit |
-|--------|----------|-----------|
-| Language | SQL + Markdown | Python |
-| UI Definition | Declarative (components in Markdown) | Imperative (Python code) |
-| Charts | Built-in components | st.* / Altair / Plotly etc. |
-| Template Pages | Dynamic routing with `[param].md` | State management with `st.query_params` |
-| Caching | Automatic (at build time) | `@st.cache_data` decorator |
-| Deployment | Static site generation possible | Server required |
+| Aspect | Evidence | Streamlit | Lightdash |
+|--------|----------|-----------|-----------|
+| Language | SQL + Markdown | Python | dbt (SQL) + YAML |
+| UI Definition | Declarative (Markdown) | Imperative (Python) | GUI + dbt meta |
+| Charts | Built-in components | st.* / Altair / Plotly | Built-in (drag & drop) |
+| Template Pages | `[param].md` routing | `st.query_params` | Explores/Dashboards |
+| Caching | Automatic (build time) | `@st.cache_data` | Query cache |
+| Deployment | Static site | Server | Docker (self-host) |
+| Data Modeling | SQL files | Python | dbt models |
 
 ## License
 

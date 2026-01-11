@@ -1,0 +1,85 @@
+version: 2
+
+models:
+  - name: stg_superstore
+    description: "SuperStore データのステージング層 - CSVからの生データ読み込み・正規化"
+    meta:
+      label: "SuperStore Sales"
+    columns:
+      - name: order_date
+        description: "注文日"
+        meta:
+          dimension:
+            type: date
+      - name: ship_mode
+        description: "配送方法"
+      - name: customer_name
+        description: "顧客名"
+      - name: segment
+        description: "顧客セグメント (Consumer/Corporate/Home Office)"
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Consumer', 'Corporate', 'Home Office']
+      - name: city
+        description: "都市"
+      - name: state
+        description: "州"
+      - name: category
+        description: "商品カテゴリ (Furniture/Office Supplies/Technology)"
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Furniture', 'Office Supplies', 'Technology']
+      - name: sub_category
+        description: "商品サブカテゴリ"
+      - name: product_name
+        description: "商品名"
+      - name: sales
+        description: "売上金額"
+        data_tests:
+          - not_null
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_sales:
+              type: sum
+              label: "Total Sales"
+            avg_sales:
+              type: average
+              label: "Average Sales"
+      - name: quantity
+        description: "数量"
+        data_tests:
+          - not_null
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_quantity:
+              type: sum
+              label: "Total Quantity"
+      - name: discount
+        description: "割引率"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            avg_discount:
+              type: average
+              label: "Average Discount"
+      - name: profit
+        description: "利益金額"
+        data_tests:
+          - not_null
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_profit:
+              type: sum
+              label: "Total Profit"
+            avg_profit:
+              type: average
+              label: "Average Profit"

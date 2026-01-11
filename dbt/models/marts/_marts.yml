@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: sales_summary
+    description: "全体サマリー - 総注文数、売上、利益、利益率"
+    columns:
+      - name: total_orders
+        description: "総注文数"
+      - name: total_sales
+        description: "総売上金額"
+      - name: total_profit
+        description: "総利益金額"
+      - name: avg_discount
+        description: "平均割引率"
+      - name: profit_margin
+        description: "利益率 (%)"
+
+  - name: category_performance
+    description: "カテゴリ別パフォーマンス集計"
+    columns:
+      - name: category
+        description: "商品カテゴリ"
+        data_tests:
+          - not_null
+          - unique
+      - name: order_count
+        description: "注文数"
+      - name: sales
+        description: "売上金額"
+      - name: profit
+        description: "利益金額"
+      - name: profit_margin
+        description: "利益率 (%)"
+
+  - name: monthly_trends
+    description: "月別トレンド - カテゴリ・セグメント別の月次推移"
+    columns:
+      - name: month
+        description: "年月 (YYYY-MM形式)"
+      - name: category
+        description: "商品カテゴリ"
+      - name: segment
+        description: "顧客セグメント"
+      - name: order_count
+        description: "注文数"
+      - name: sales
+        description: "売上金額"
+      - name: profit
+        description: "利益金額"

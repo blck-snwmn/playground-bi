@@ -11,11 +11,19 @@ node_modules/
 .svelte-kit/
 build/
 
-# Python (Streamlit)
+# Python (Streamlit, dbt)
 .venv/
 __pycache__/
 *.py[cod]
 .python-version
+
+# dbt
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+
+# Lightdash
+.lightdash/
 
 # IDE
 .vscode/

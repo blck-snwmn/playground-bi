@@ -1,0 +1,99 @@
+services:
+  lightdash:
+    image: lightdash/lightdash:latest
+    platform: linux/amd64
+    ports:
+      - "8080:8080"
+    environment:
+      - LIGHTDASH_SECRET=dev-secret-key-change-in-production
+      - PGHOST=lightdash-db
+      - PGPORT=5432
+      - PGUSER=lightdash
+      - PGPASSWORD=lightdash
+      - PGDATABASE=lightdash
+      - SITE_URL=http://localhost:8080
+      # S3 (MinIO) settings for pagination
+      - S3_ENDPOINT=http://minio:9000
+      - S3_BUCKET=lightdash
+      - S3_REGION=us-east-1
+      - S3_ACCESS_KEY=minioadmin
+      - S3_SECRET_KEY=minioadmin
+      - S3_FORCE_PATH_STYLE=true
+    depends_on:
+      lightdash-db:
+        condition: service_healthy
+      warehouse:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    volumes:
+      - ../dbt:/usr/app/dbt
+      - ../data:/usr/app/data
+
+  lightdash-db:
+    image: postgres:15-alpine
+    platform: linux/amd64
+    environment:
+      - POSTGRES_USER=lightdash
+      - POSTGRES_PASSWORD=lightdash
+      - POSTGRES_DB=lightdash
+    volumes:
+      - lightdash-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lightdash"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  warehouse:
+    image: postgres:15-alpine
+    platform: linux/amd64
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=warehouse
+      - POSTGRES_PASSWORD=warehouse
+      - POSTGRES_DB=warehouse
+    volumes:
+      - warehouse-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U warehouse"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio:latest
+    platform: linux/amd64
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  minio-init:
+    image: minio/mc:latest
+    platform: linux/amd64
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set myminio http://minio:9000 minioadmin minioadmin;
+      mc mb myminio/lightdash --ignore-existing;
+      exit 0;
+      "
+
+volumes:
+  lightdash-db-data:
+  warehouse-db-data:
+  minio-data:
