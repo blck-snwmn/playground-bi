@@ -1,6 +1,6 @@
 services:
   lightdash:
-    image: lightdash/lightdash:latest
+    image: lightdash/lightdash:latest@sha256:aa338265a027b8a9972b73660cddcbc881a25a20becf3a37253b90d5c0e71dbd
     platform: linux/amd64
     ports:
       - "8080:8080"
@@ -31,7 +31,7 @@ services:
       - ../data:/usr/app/data
 
   lightdash-db:
-    image: postgres:15-alpine
+    image: postgres:15-alpine@sha256:b3968e348b48f1198cc6de6611d055dbad91cd561b7990c406c3fc28d7095b21
     platform: linux/amd64
     environment:
       - POSTGRES_USER=lightdash
@@ -46,7 +46,7 @@ services:
       retries: 5
 
   warehouse:
-    image: postgres:15-alpine
+    image: postgres:15-alpine@sha256:b3968e348b48f1198cc6de6611d055dbad91cd561b7990c406c3fc28d7095b21
     platform: linux/amd64
     ports:
       - "5433:5432"
@@ -63,7 +63,7 @@ services:
       retries: 5
 
   minio:
-    image: minio/minio:latest
+    image: minio/minio:latest@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e
     platform: linux/amd64
     ports:
       - "9000:9000"
@@ -81,7 +81,7 @@ services:
       retries: 5
 
   minio-init:
-    image: minio/mc:latest
+    image: minio/mc:latest@sha256:a7fe349ef4bd8521fb8497f55c6042871b2ae640607cf99d9bede5e9bdf11727
     platform: linux/amd64
     depends_on:
       minio:
