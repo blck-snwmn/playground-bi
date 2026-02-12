@@ -6,6 +6,6 @@
     "lightdash": "lightdash"
   },
   "devDependencies": {
-    "@lightdash/cli": "0.2325.1"
+    "@lightdash/cli": "0.2325.2"
   }
 }
