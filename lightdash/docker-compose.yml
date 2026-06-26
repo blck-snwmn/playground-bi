@@ -1,6 +1,6 @@
 services:
   lightdash:
-    image: lightdash/lightdash:latest@sha256:aa338265a027b8a9972b73660cddcbc881a25a20becf3a37253b90d5c0e71dbd
+    image: lightdash/lightdash:latest@sha256:7dddffa649c19c3ec7c90d735e345b141b9f2c4f4cef1d04635f1cbd1ddd898d
     platform: linux/amd64
     ports:
       - "8080:8080"
